@@ -25,7 +25,16 @@ bag.imp2=importance(bag.train2, type=1) #important variables
 bag.imp.order2=order(bag.imp2, decreasing = TRUE) #important variables order (rownumbers)
 
 
-
+#Bagging 3rd iteration
+set.seed(7)
+bag.train3=randomForest(Activity~.-Activity_ID, data = train_data, mtry=10, importance=TRUE )
+summary(bag.train3)
+varImpPlot(bag.train3)
+ypred.bag3=predict(bag.train3, test_data, type="class")
+table(ypred.bag3,test_data$Activity)
+mean(ypred.bag3!=test_data$Activity)
+bag.imp3=importance(bag.train3, type=1) #important variables
+bag.imp.order3=order(bag.imp3, decreasing = TRUE) #important variables order (rownumbers)
 
 
 
